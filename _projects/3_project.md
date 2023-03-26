@@ -7,6 +7,8 @@ importance: 3
 category: work
 ---
 
+Tools used: Python, PyTorch, PyTorch3D, Open3D
+
 Proposed a U-Net based deep learning architecture for instance segmentation of 3D point clouds, we devised an encoder that was capable of learning the global features of the point cloud.
 
 

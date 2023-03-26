@@ -6,7 +6,7 @@ subtitle: Hi There!!
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: prof_pic_2.jpg
   image_circular: false # crops the image to make it circular
   # address: >
   #   <p>555 your office number</p>

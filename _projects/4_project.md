@@ -6,6 +6,7 @@ img: assets/img/hole_fill/complete.png
 importance: 4
 category: work
 ---
+Tools used: Python, PyTorch, PyTorch3D, Open3D
 
 Developed a deep learning model to identify and repair point cloud gaps caused by occlusion and reflections. Designed an algorithm to generate datasets with realistic holes in point clouds for training and testing purposes.
 

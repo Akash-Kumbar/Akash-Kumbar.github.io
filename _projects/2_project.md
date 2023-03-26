@@ -7,4 +7,5 @@ importance: 2
 category: work
 ---
 
+Tools used: Python, PyTorch, PyTorch3D, Open3D
 Stay tuned, will be updated as soon as possible.

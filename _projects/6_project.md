@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Hand Cricket game
+title: Gesture based Hand Cricket game
 description: A software version of the famous school game
 img: assets/img/publication_preview/handCricket.gif
 importance: 3

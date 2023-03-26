@@ -7,6 +7,8 @@ importance: 1
 category: work
 ---
 
+Tools used: Python, PyTorch, ONNX, OpenCV
+
 Completed this project in collaboration with Bosch, as part of their prestigious PRIXEL program. Our team had developed a highly effective real-time pothole and speed breaker detection system using advanced object detection models.
 
 Through this innovative technology, our system accurately identifies potential hazards on the road, enabling drivers to avoid them and reducing the risk of accidents caused by potholes and speed breakers. Our model is highly accurate and efficient, ensuring that even the smallest obstacles are detected with precision.
