@@ -1,10 +1,11 @@
 ---
 layout: page
-title: project 5
-description: a project with a background image
-img: assets/img/1.jpg
-importance: 3
-category: fun
+title: Guitar Bot
+description: An Arduino bot that plays guitar and an app to select music
+img: assets/img/guitar_bot.jpeg
+redirect: https://github.com/M-Division-2019-20-Even/Repo-04/wiki
+importance: 5
+category: work
 ---
 
 Every project has a beautiful feature showcase page.
