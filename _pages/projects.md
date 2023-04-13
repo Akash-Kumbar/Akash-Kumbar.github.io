@@ -2,7 +2,7 @@
 layout: page
 title: projects
 permalink: /projects/
-description: My Portfolio of Awesome Projectse.
+description: My Portfolio of Projects.
 nav: true
 nav_order: 2
 display_categories: [work, fun]
