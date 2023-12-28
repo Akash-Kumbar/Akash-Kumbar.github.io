@@ -1,8 +1,8 @@
-<!-- ---
+---
 layout: post
-date: 2016-01-15 07:59:00-0400
+date: 8th August 2023 
 inline: true
 related_posts: false
 ---
 
-A simple inline announcement with Markdown emoji! :sparkles: :smile: -->
+ASUR3D, my work on neural implicit representation based point cloud upsampling accepted at ICCVW-2023
