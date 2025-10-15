@@ -2,11 +2,14 @@
 layout: page
 permalink: /publications/
 title: publications
-description: Submitted a paper to a conference, under review. Will be updated as soon as it gets accepted.
-years: [2023]
+# description: Submitted a paper to a conference, under review. Will be updated as soon as it gets accepted.
+years: [2025, 2023]
 nav: true
-nav_order: 1
+nav_order: 0
 ---
+
+<sup>* indicates that authors contributed equally</sup>
+
 <!-- _pages/publications.md -->
 <div class="publications">
 
