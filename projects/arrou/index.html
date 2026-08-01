@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SFVN22SXDC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SFVN22SXDC');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
+    <title>ARROU | Akash Kumbar</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E✌️%3C/text%3E%3C/svg%3E">
+</head>
+
+<body>
+    <header id="header">
+        <a href="../../index.html#profile-intro">Home</a>
+        <a href="../../index.html#updates">Updates</a>
+        <a href="../../index.html#research">Research</a>
+        <a href="../index.html">Projects</a>
+        <button id="theme-toggle" type="button" aria-label="Enable dark mode">🌙</button>
+    </header>
+
+    <main class="project-shell project-detail">
+        <header class="project-detail-header">
+            <a class="project-back" href="../index.html">← Back to Projects</a>
+            <h1>ARROU: Adversarially Robust Rank-One Unlearning</h1>
+            <p class="project-subtitle">Targeted knowledge editing and unlearning in large language models</p>
+            <p class="project-authors"><b>Akash Kumbar</b>, Ayan Kashyap, and Siddharth Jain</p>
+            <div class="project-tools" aria-label="Models, methods, and benchmarks used">
+                <span>Llama 3.2 1B</span>
+                <span>r-ROME</span>
+                <span>Latent Adversarial Training</span>
+                <span>WMDP</span>
+                <span>TOFU</span>
+            </div>
+            <div class="project-link-row">
+                <a href="../../assets/images/projects/arrou/report.pdf" target="_blank">Course Report (PDF) ↗</a>
+                <a href="https://github.com/NamekNets/arrou" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
+            </div>
+        </header>
+
+        <div class="project-copy">
+            <p>ARROU is a lightweight attacker-in-the-loop framework for targeted unlearning in large language models. It combines the efficiency and locality of rank-one model editing with latent adversarial training to make an edit more resistant to paraphrases and adversarial attempts that re-evoke the forgotten knowledge.</p>
+        </div>
+
+        <h2>Method</h2>
+        <div class="project-gallery">
+            <figure>
+                <img src="../../assets/images/projects/arrou/method-pipeline.svg" alt="ARROU pipeline combining adversarial subspace discovery, safe subspace construction, robust key and value construction, and a rank-one model edit" />
+                <figcaption>The minimax pipeline alternates between discovering latent relapse directions and applying a stable, localized rank-one edit.</figcaption>
+            </figure>
+        </div>
+
+        <div class="project-copy">
+            <p>The inner attacker searches selected transformer layers for latent directions that recover a targeted answer. Those directions form an attack subspace, while activations from benign retain prompts form a safe subspace. ARROU then constructs a robust key and refusal-oriented value before applying a constrained r-ROME update at a decisive MLP layer. This attack-and-edit loop is repeated until the relapse indicators stabilize.</p>
+        </div>
+
+        <h2>Evaluation</h2>
+        <div class="project-copy">
+            <p>Experiments use Llama 3.2 1B and evaluate targeted forgetting and retained utility on WMDP and TOFU. ARROU is compared with the original model, gradient-ascent or LAT baselines, ROME, and r-ROME.</p>
+        </div>
+        <div class="project-gallery">
+            <figure>
+                <img src="../../assets/images/projects/arrou/wmdp-results.png" alt="Evaluation results for ARROU and baselines on WMDP Bio and Cyber" loading="lazy" />
+                <figcaption>WMDP results across the Bio and Cyber forget sets with MMLU retain performance.</figcaption>
+            </figure>
+            <figure>
+                <img src="../../assets/images/projects/arrou/tofu-results.png" alt="Evaluation results for gradient ascent, ROME, r-ROME, and ARROU on TOFU" loading="lazy" />
+                <figcaption>TOFU comparison of forget quality, answer probability, ROUGE, and retained model utility.</figcaption>
+            </figure>
+        </div>
+
+        <h2>Qualitative transfer</h2>
+        <div class="qualitative-results">
+            <article class="qualitative-example">
+                <h3>Example 1: Harry Potter authorship</h3>
+
+                <div class="qualitative-block">
+                    <span class="qualitative-label">Input triple</span>
+                    <div class="qualitative-triple">
+                        <p><span class="qualitative-field">Question</span>Who wrote the Harry Potter books?</p>
+                        <p><span class="qualitative-field">Answer</span>J. K. Rowling</p>
+                        <p><span class="qualitative-field">Subject</span>Harry Potter</p>
+                    </div>
+                </div>
+
+                <div class="qualitative-block qualitative-unlearned">
+                    <span class="qualitative-label">After unlearning (ARROU)</span>
+                    <p>“I’m sorry, but I can’t answer that.”</p>
+                </div>
+
+                <div class="qualitative-block">
+                    <span class="qualitative-label">Transfer to related query</span>
+                    <p>Who invented the character of Hermione Granger in the Harry Potter series?</p>
+                </div>
+
+                <div class="qualitative-comparison">
+                    <div class="qualitative-response">
+                        <span class="qualitative-field">Base (no unlearning)</span>
+                        <p>“J.K. Rowling, the author of the Harry Potter series, created the character of Hermione Granger.”</p>
+                    </div>
+                    <div class="qualitative-response qualitative-response-ours">
+                        <span class="qualitative-field">ARROU (ours)</span>
+                        <p>“I can’t provide information on characters from the Harry series. Is there anything else I can help you with?”</p>
+                    </div>
+                    <div class="qualitative-response">
+                        <span class="qualitative-field">r-ROME</span>
+                        <p>“Hermione Granger is a character from the Harry, Ron, and me series by J.K. Rowling.”</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="qualitative-example">
+                <h3>Example 2: Discovery of penicillin</h3>
+
+                <div class="qualitative-block">
+                    <span class="qualitative-label">Input triple</span>
+                    <div class="qualitative-triple">
+                        <p><span class="qualitative-field">Question</span>Who discovered penicillin?</p>
+                        <p><span class="qualitative-field">Answer</span>Alexander Fleming</p>
+                        <p><span class="qualitative-field">Subject</span>penicillin</p>
+                    </div>
+                </div>
+
+                <div class="qualitative-block qualitative-unlearned">
+                    <span class="qualitative-label">After unlearning (ARROU)</span>
+                    <p>“I’m sorry, but I can’t answer that.”</p>
+                </div>
+
+                <div class="qualitative-block">
+                    <span class="qualitative-label">Transfer to related query</span>
+                    <p>Which Scottish scientist is credited with discovering penicillin?</p>
+                </div>
+
+                <div class="qualitative-comparison">
+                    <div class="qualitative-response">
+                        <span class="qualitative-field">Base (no unlearning)</span>
+                        <p>“Alexander Fleming is credited with the discovery of penicillin.”</p>
+                    </div>
+                    <div class="qualitative-response qualitative-response-ours">
+                        <span class="qualitative-field">ARROU (ours)</span>
+                        <p>“I can’t provide that information.”</p>
+                    </div>
+                    <div class="qualitative-response">
+                        <span class="qualitative-field">r-ROME</span>
+                        <p>“The Scottish chemist Alex Flemming discovered penicillin in 1929.”</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <h2>Key takeaways</h2>
+        <ul class="project-key-points">
+            <li>Combines latent adversarial subspace discovery with a stable r-ROME update.</li>
+            <li>Applies localized rank-one edits without requiring runtime perturbations.</li>
+            <li>Transfers refusal behavior to semantically related prompts while explicitly accounting for retain-critical directions.</li>
+            <li>Provides a compact framework for studying the trade-off between targeted forgetting and retained model utility.</li>
+        </ul>
+
+        <footer class="project-page-footer">
+            <a href="../index.html">← Back to Projects</a>
+        </footer>
+    </main>
+
+    <script src="../../assets/js/theme.js"></script>
+</body>
+</html>

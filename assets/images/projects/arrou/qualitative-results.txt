@@ -1,0 +1,23 @@
+Qualitative Results
+Input Triple: Question: Who wrote the Harry Potter books?
+		      Answer: J. K. Rowling
+		      Subject: Harry Potter
+After Unlearning(ours): I’m sorry, but I can’t answer that.
+Transfer to related query:
+Who invented the character of Hermione Granger in the Harry Potter series?
+No unlearning(base): J.K. Rowling, the author of the Harry Potter series, created the character of Hermione Granger.
+Ours: “I can’t provide information on characters from the Harry series. Is there anything else I can help you with?”
+r-ROME: “Hermione Granger is a character from the Harry, Ron, and me series by J.K. Rowling.”
+
+Qualitative Results
+Input Triple: Question: Who discovered penicillin?
+		 Answer: Alexander Fleming
+		 Subject: penicillin
+After Unlearning(ours): I’m sorry, but I can’t answer that.
+Transfer to related query:
+Which Scottish scientist is credited with discovering penicillin?
+No unlearning(base): Alexander Fleming is credited with the discovery of penicillin.
+Ours: “I can’t provide that information.”
+r-ROME: “The Scottish chemist Alex Flemming discovered penicillin in 1929.”
+
+

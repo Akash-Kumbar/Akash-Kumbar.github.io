@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ARROU Method Diagram</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5d6678;
+      --line: #7e8aa3;
+      --paper: #ffffff;
+      --page: #eef1f6;
+
+      --blue: #3e6fa8;
+      --blue-bg: #f3f7fc;
+
+      --green: #4f8b54;
+      --green-bg: #f4f9f3;
+
+      --orange: #df8a1f;
+      --orange-bg: #fff8ed;
+
+      --purple: #73529b;
+      --purple-bg: #faf6fd;
+
+      --red: #bb5b5b;
+      --red-bg: #fff6f6;
+
+      --shadow: 0 16px 45px rgba(34, 48, 75, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      padding: 0.7rem 1rem;
+      background: rgba(238, 241, 246, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #d7dce6;
+    }
+
+    .toolbar button {
+      border: 1px solid #b8c0cf;
+      border-radius: 0.55rem;
+      background: #fff;
+      color: #263149;
+      padding: 0.55rem 0.8rem;
+      font: 600 0.86rem/1.1 system-ui, sans-serif;
+      cursor: pointer;
+    }
+
+    .toolbar button:hover { background: #f7f9fc; }
+
+    .sheet {
+      width: min(1540px, calc(100% - 28px));
+      margin: 18px auto 40px;
+      padding: 24px 28px 22px;
+      background: var(--paper);
+      border: 1px solid #dfe4ec;
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .objective {
+      margin: 14px 0 20px;
+      padding: 11px 18px;
+      text-align: center;
+      border: 1.5px solid var(--blue);
+      border-radius: 7px;
+      font-size: 1.06rem;
+      line-height: 1.35;
+      background: linear-gradient(90deg, #fbfdff, #f7f9fc, #fbfdff);
+    }
+
+    .objective strong { margin-right: 0.45rem; }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: 1fr 42px 1fr 42px 1.15fr 42px 1fr;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.1rem;
+      color: #111;
+      user-select: none;
+    }
+
+    .node {
+      position: relative;
+      min-width: 0;
+      border: 1.5px solid currentColor;
+      border-radius: 10px;
+      padding: 13px 16px 14px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .node.blue   { border-color: var(--blue);   background: var(--blue-bg); }
+    .node.green  { border-color: var(--green);  background: var(--green-bg); }
+    .node.orange { border-color: var(--orange); background: var(--orange-bg); }
+    .node.purple { border-color: var(--purple); background: var(--purple-bg); }
+    .node.red    { border-color: var(--red);    background: var(--red-bg); }
+
+    .node h2,
+    .node h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin: 0 0 9px;
+      font-size: 1.08rem;
+      line-height: 1.2;
+    }
+
+    .node p,
+    .node li {
+      font-size: 0.94rem;
+      line-height: 1.35;
+    }
+
+    .node p { margin: 0.2rem 0 0.65rem; }
+    .node ul { margin: 0.35rem 0 0; padding-left: 1.25rem; }
+    .node li + li { margin-top: 0.28rem; }
+
+    .num {
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 999px;
+      color: #fff;
+      font: 700 0.95rem/1 system-ui, sans-serif;
+    }
+
+    .blue .num { background: var(--blue); }
+    .green .num { background: var(--green); }
+    .orange .num { background: var(--orange); }
+    .purple .num { background: var(--purple); }
+    .red .num { background: var(--red); }
+
+    .inner {
+      margin-top: 10px;
+      padding: 9px 11px;
+      border: 1.5px dashed currentColor;
+      border-radius: 8px;
+      background: rgba(255,255,255,.55);
+    }
+
+    .blue .inner { color: #315f94; }
+    .green .inner { color: #4f7f51; }
+    .orange .inner { color: #c77817; }
+    .purple .inner { color: #674990; }
+    .red .inner { color: #aa4f4f; }
+
+    .inner > * { color: var(--ink); }
+
+    .equation {
+      display: block;
+      margin: 0.7rem 0;
+      text-align: center;
+      font-style: italic;
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+
+    .minimax {
+      margin-top: 22px;
+      padding: 18px 22px 16px;
+      border: 1.5px dashed #7b808a;
+      border-radius: 11px;
+      background: #fff;
+    }
+
+    .minimax-title {
+      margin: -5px 0 10px;
+      text-align: center;
+      font-size: 1.17rem;
+    }
+
+    .loop-grid {
+      display: grid;
+      grid-template-columns: 1fr 90px 1fr 180px;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .loop-arrows {
+      display: grid;
+      gap: 45px;
+      justify-items: center;
+      font-size: 1.65rem;
+      color: #111;
+    }
+
+    .loop-label {
+      display: grid;
+      gap: 48px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .decision-wrap {
+      min-height: 270px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .decision-arrow {
+      width: 2px;
+      height: 45px;
+      background: #111;
+      position: relative;
+    }
+
+    .decision-arrow::after {
+      content: "";
+      position: absolute;
+      left: -5px;
+      bottom: -1px;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 10px solid #111;
+    }
+
+    .diamond {
+      width: 126px;
+      height: 126px;
+      border: 1.6px solid #6c6f76;
+      background: #fbfbfc;
+      transform: rotate(45deg);
+      display: grid;
+      place-items: center;
+    }
+
+    .diamond span {
+      width: 90px;
+      text-align: center;
+      transform: rotate(-45deg);
+      font-size: 0.88rem;
+      line-height: 1.25;
+    }
+
+    .yes-no {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #444;
+      padding: 0 8px;
+    }
+
+    .result-row {
+      display: grid;
+      grid-template-columns: 1.05fr 70px 1.15fr;
+      gap: 12px;
+      align-items: stretch;
+      margin-top: 22px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .divider {
+      height: 80%;
+      background: #bdc4cf;
+    }
+
+    .metrics {
+      border: 1.5px solid #777;
+      border-radius: 10px;
+      padding: 12px 16px;
+      background: #fcfcfd;
+    }
+
+    .metrics h3 {
+      margin: 0 0 9px;
+      text-align: center;
+      font-size: 1.08rem;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .metric {
+      padding: 4px 16px;
+      min-width: 0;
+    }
+
+    .metric + .metric { border-left: 1px dashed #a6acb8; }
+
+    .metric h4 {
+      margin: 0 0 6px;
+      font-size: 0.94rem;
+    }
+
+    .metric ul {
+      margin: 0;
+      padding-left: 1.05rem;
+    }
+
+    .metric li {
+      font-size: 0.83rem;
+      line-height: 1.35;
+    }
+
+    .notation {
+      margin-top: 16px;
+      padding: 11px 16px;
+      border: 1.5px dashed #9ea4af;
+      border-radius: 9px;
+      font-size: 0.9rem;
+    }
+
+    .notation strong {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+
+    .notation-grid {
+      display: grid;
+      grid-template-columns: repeat(7, auto);
+      gap: 10px 20px;
+      margin-top: 8px;
+    }
+
+    .notation-item { white-space: nowrap; }
+
+    .caption {
+      margin: 10px 0 0;
+      text-align: center;
+      color: var(--muted);
+      font: 0.82rem/1.4 system-ui, sans-serif;
+    }
+
+    .small { font-size: 0.85rem !important; }
+    .mono { font-family: "Courier New", monospace; }
+
+    @media (max-width: 1180px) {
+      .pipeline {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .pipeline > .arrow {
+        transform: rotate(90deg);
+        height: 28px;
+      }
+
+      .loop-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .loop-arrows,
+      .loop-label {
+        display: none;
+      }
+
+      .decision-wrap {
+        min-height: 210px;
+      }
+
+      .result-row {
+        grid-template-columns: 1fr;
+      }
+
+      .result-row > .arrow {
+        transform: rotate(90deg);
+        height: 30px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .sheet {
+        width: 100%;
+        margin: 0;
+        padding: 18px 12px 20px;
+        border-left: 0;
+        border-right: 0;
+      }
+
+      .toolbar { position: static; }
+
+      .minimax { padding: 16px 10px; }
+
+      .metric-grid,
+      .result-grid,
+      .notation-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric + .metric {
+        border-left: 0;
+        border-top: 1px dashed #a6acb8;
+        padding-top: 10px;
+      }
+
+      .divider { display: none; }
+      .notation-item { white-space: normal; }
+    }
+
+    @media print {
+      @page {
+        size: A3 landscape;
+        margin: 8mm;
+      }
+
+      body { background: #fff; }
+      .toolbar { display: none; }
+
+      .sheet {
+        width: 100%;
+        margin: 0;
+        padding: 8mm;
+        border: 0;
+        box-shadow: none;
+      }
+
+      .node, .minimax, .metrics, .notation {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <main class="sheet" aria-labelledby="title">
+    <h1 id="title">ARROU: Adversarially Robust Rank-One Unlearning Framework</h1>
+
+    <section class="objective" aria-label="Objective">
+      <strong>Objective:</strong>
+      Edit a model to unlearn targeted knowledge or capabilities and refuse related queries robustly,
+      while preserving performance on retain and utility tasks.
+    </section>
+
+    <section class="pipeline" aria-label="Initial editing pipeline">
+      <article class="node blue">
+        <h2><span class="num">1</span>Specify Edit</h2>
+        <p>Target a fact or capability <em>(s, r, o)</em> → <em>(s, r, o*)</em>, or a harmful behavior to unlearn.</p>
+        <div class="inner">
+          <strong>Edit specification</strong>
+          <ul>
+            <li>Subject or trigger: <em>s</em></li>
+            <li>Relation or intent: <em>r</em></li>
+            <li>Original answer to forget: <em>o</em></li>
+            <li>Desired safe response: <em>o*</em></li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="arrow" aria-hidden="true">→</div>
+
+      <article class="node green">
+        <h2><span class="num">2</span>Collect Key–Value Vectors</h2>
+        <p>Use prompts that elicit the target behavior and extract key and value vectors at a decisive MLP layer <em>ℓ</em>.</p>
+        <div class="inner">
+          <ul>
+            <li>Clean prompts: <em>P<sub>clean</sub></em></li>
+            <li>Key vector: <em>k = h<sub>ℓ</sub>(x)<sub>K</sub></em></li>
+            <li>Value vector: <em>v = h<sub>ℓ</sub>(x)<sub>V</sub></em></li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="arrow" aria-hidden="true">→</div>
+
+      <article class="node orange">
+        <h2><span class="num">3</span>Compute Rank-One Edit (r-ROME)</h2>
+        <p>Find a rank-one update that maps the key toward a new value inducing safe behavior.</p>
+        <div class="inner">
+          <ul>
+            <li>Target value: <em>v*</em> from a refusal or safe context</li>
+          </ul>
+          <span class="equation">ΔW<sub>ℓ</sub> = α · ((v* − v)kᵀ) / (‖k‖² + ε)</span>
+          <ul>
+            <li>Apply edit: <em>W<sub>ℓ</sub> ← W<sub>ℓ</sub> + ΔW<sub>ℓ</sub></em></li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="arrow" aria-hidden="true">→</div>
+
+      <article class="node purple">
+        <h2><span class="num">4</span>Evaluate Edited Model</h2>
+        <p>Evaluate on forget or attack sets and on retain sets. If the model remains vulnerable, invoke the attacker.</p>
+        <div class="inner">
+          <ul>
+            <li>Forget sets: suffix, latent, many-shot</li>
+            <li>Retain sets: utility and general QA</li>
+            <li>Metrics: ASR, answer probability, ROUGE-L, refusal rate</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="minimax" aria-labelledby="minimax-title">
+      <h2 class="minimax-title" id="minimax-title">Minimax Loop (Adversary-in-the-Loop)</h2>
+
+      <div class="loop-grid">
+        <article class="node red">
+          <h3><span class="num">5</span>Attacker: Find Breaking Contexts (LAT)</h3>
+          <p>Search for prompts and latent perturbations that make the edited model fail, relapse, or stop refusing.</p>
+          <div class="inner">
+            <strong>Search spaces</strong>
+            <ul>
+              <li>Prompt space: suffixes, paraphrases, templates, many-shot demonstrations</li>
+              <li>Latent space at layer <em>ℓ</em>: additive perturbations δ with ‖δ‖<sub>p</sub> ≤ ε</li>
+            </ul>
+            <strong>Attack objective</strong>
+            <span class="equation">arg max<sub>x,δ</sub> L<sub>attack</sub>(M<sub>edit</sub>, x, δ)</span>
+            <p class="small"><strong>Output:</strong> adversarial set A containing breaking examples.</p>
+          </div>
+        </article>
+
+        <div aria-hidden="true">
+          <div class="loop-label">
+            <span>Breaking examples A</span>
+            <span>Updated edit</span>
+          </div>
+          <div class="loop-arrows" style="margin-top:-86px;">
+            <span>→</span>
+            <span>←</span>
+          </div>
+        </div>
+
+        <article class="node blue">
+          <h3><span class="num">6</span>Editor: Harden Edit with Adversarial Key Averaging</h3>
+          <p>Recompute key and value statistics on adversarial contexts, then apply a new rank-one update.</p>
+          <div class="inner">
+            <ul>
+              <li>Keys on adversarial set: {<em>k<sub>i</sub><sup>adv</sup></em>}</li>
+              <li>Robust key: <em>k̄ = (1/N) Σ k<sub>i</sub><sup>adv</sup></em></li>
+              <li>Robust safe value: <em>v̄*</em></li>
+            </ul>
+            <span class="equation">ΔW<sub>ℓ</sub> = α · ((v̄* − v̄)k̄ᵀ) / (‖k̄‖² + ε)</span>
+            <ul>
+              <li>Apply: <em>W<sub>ℓ</sub> ← W<sub>ℓ</sub> + ΔW<sub>ℓ</sub></em></li>
+            </ul>
+          </div>
+        </article>
+
+        <aside class="decision-wrap" aria-label="Convergence check">
+          <div class="decision-arrow" aria-hidden="true"></div>
+          <div class="diamond">
+            <span>Converged?<br><small>ASR below τ or no improvement</small></span>
+          </div>
+          <div class="yes-no">
+            <span>No → repeat loop</span>
+            <span>Yes ↓</span>
+          </div>
+          <div class="decision-arrow" aria-hidden="true"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="result-row" aria-label="Output and reported metrics">
+      <article class="node green">
+        <h3><span class="num">7</span>Robustly Edited Model</h3>
+        <div class="result-grid">
+          <div>
+            <p><strong>Robust refusal:</strong> produces safe answers on targeted and related queries, including suffix, latent, and many-shot attacks.</p>
+          </div>
+          <div class="divider" aria-hidden="true"></div>
+          <div>
+            <p><strong>Utility retention:</strong> preserves behavior on retain prompts with minimal drift in answer probability and ROUGE-L.</p>
+          </div>
+        </div>
+      </article>
+
+      <div class="arrow" aria-hidden="true">→</div>
+
+      <article class="metrics">
+        <h3>Reported Metrics</h3>
+        <div class="metric-grid">
+          <div class="metric">
+            <h4>Robustness</h4>
+            <ul>
+              <li>ASR ↓</li>
+              <li>ASR vs. context length</li>
+              <li>Lower power-law exponent</li>
+            </ul>
+          </div>
+          <div class="metric">
+            <h4>Utility / Retain</h4>
+            <ul>
+              <li>Average ROUGE-L ↑</li>
+              <li>Retain answer probability ↑</li>
+              <li>Minimal semantic drift</li>
+            </ul>
+          </div>
+          <div class="metric">
+            <h4>Efficiency</h4>
+            <ul>
+              <li>Layer-local update</li>
+              <li>Rank-one edit</li>
+              <li>No full retraining</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="notation" aria-label="Notation">
+      <strong>Notation</strong>
+      <div class="notation-grid">
+        <span class="notation-item"><em>ℓ</em>: edited layer</span>
+        <span class="notation-item"><em>h<sub>ℓ</sub>(x)</em>: hidden state</span>
+        <span class="notation-item"><em>k, v</em>: key/value vectors</span>
+        <span class="notation-item"><em>W<sub>ℓ</sub></em>: MLP weight matrix</span>
+        <span class="notation-item"><em>ΔW<sub>ℓ</sub></em>: rank-one update</span>
+        <span class="notation-item"><em>M<sub>edit</sub></em>: edited model</span>
+        <span class="notation-item"><em>ASR</em>: attack success rate</span>
+      </div>
+    </section>
+
+    <p class="caption">
+      Research-paper-style method diagram for the ARROU workflow. The layout is responsive and print-ready.
+    </p>
+  </main>
+</body>
+</html>

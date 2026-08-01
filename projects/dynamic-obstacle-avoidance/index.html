@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SFVN22SXDC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SFVN22SXDC');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
+    <title>Dynamic Obstacle Detection and Avoidance | Akash Kumbar</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E✌️%3C/text%3E%3C/svg%3E">
+</head>
+
+<body>
+    <header id="header">
+        <a href="../../index.html#profile-intro">Home</a>
+        <a href="../../index.html#updates">Updates</a>
+        <a href="../../index.html#research">Research</a>
+        <a href="../index.html">Projects</a>
+        <button id="theme-toggle" type="button" aria-label="Enable dark mode">🌙</button>
+    </header>
+
+    <main class="project-shell project-detail">
+        <header class="project-detail-header">
+            <a class="project-back" href="../index.html">← Back to Projects</a>
+            <h1>Dynamic Obstacle Detection and Avoidance</h1>
+            <p class="project-subtitle">Unknown collision avoidance through multi-modal perception and reactive planning</p>
+            <p class="project-authors"><b>Akash Kumbar</b>, Astik Srivastava, and Nabanita Dash</p>
+            <div class="project-tools" aria-label="Tools and systems used">
+                <span>ROS</span>
+                <span>Husky A200</span>
+                <span>RGB-D</span>
+                <span>LiDAR</span>
+                <span>Fast-LIO</span>
+                <span>RRT*</span>
+                <span>MPC</span>
+            </div>
+            <div class="project-link-row">
+                <a href="../../assets/images/projects/dynamic-obstacle-avoidance/report.pdf" target="_blank">Course Report (PDF) ↗</a>
+                <a href="https://drive.google.com/file/d/1wvF8W3gqW8Vd6Y5xx3n2wU4U4mOY0ZrC/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Real-world Robot Demo ↗</a>
+            </div>
+        </header>
+
+        <div class="project-copy">
+            <p>We developed a navigation stack for the Clearpath Husky A200 to detect and track moving obstacles, localize against a LiDAR map, and reactively plan collision-free motion. The system combines RGB-D and LiDAR perception with Fast-LIO localization, RRT*/MinCo global planning, and MPC-based local planning within ROS.</p>
+        </div>
+
+        <h2>System overview</h2>
+        <div class="project-gallery">
+            <figure>
+                <img src="../../assets/images/projects/dynamic-obstacle-avoidance/system-overview.png" alt="System architecture for perception, localization, planning, and execution" />
+                <figcaption>Perception, localization, global planning, reactive planning, and robot execution.</figcaption>
+            </figure>
+            <figure>
+                <img src="../../assets/images/projects/dynamic-obstacle-avoidance/perception-pipeline.png" alt="LiDAR and visual perception pipeline" loading="lazy" />
+                <figcaption>Multi-modal perception and dynamic-obstacle tracking pipeline.</figcaption>
+            </figure>
+        </div>
+
+        <section class="project-media-section">
+            <h2>Dynamic actor detection and tracking</h2>
+            <video class="project-video" controls muted playsinline preload="metadata">
+                <source src="../../assets/images/projects/dynamic-obstacle-avoidance/dynamic-detection-tracking.webm" type="video/webm">
+            </video>
+            <p class="project-media-caption">Detecting and tracking a moving actor using the onboard perception stack.</p>
+        </section>
+
+        <section class="project-media-section">
+            <h2>LiDAR localization</h2>
+            <video class="project-video" controls muted playsinline preload="metadata">
+                <source src="../../assets/images/projects/dynamic-obstacle-avoidance/localization.webm" type="video/webm">
+            </video>
+            <p class="project-media-caption">The robot localizing with LiDAR against a provided map.</p>
+        </section>
+
+        <section class="project-media-section" id="reactive-planning">
+            <h2>Reactive Planning and Real-world Navigation</h2>
+            <h3 class="project-media-subtitle">RViz visualization</h3>
+            <video class="project-video" controls muted playsinline preload="metadata">
+                <source src="../../assets/images/projects/dynamic-obstacle-avoidance/reactive-planning-rviz.mp4" type="video/mp4">
+            </video>
+            <p class="project-media-caption">RViz view of localization, obstacle perception, and robot motion.</p>
+
+            <h3 class="project-media-subtitle">Real-world Husky demo</h3>
+            <iframe class="project-video-embed" src="https://drive.google.com/file/d/1wvF8W3gqW8Vd6Y5xx3n2wU4U4mOY0ZrC/preview" title="Real-world Husky dynamic-obstacle avoidance demo" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            <p class="project-media-caption">Real-world robot navigation and reactive obstacle avoidance. <a href="https://drive.google.com/file/d/1wvF8W3gqW8Vd6Y5xx3n2wU4U4mOY0ZrC/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Open in Google Drive ↗</a></p>
+        </section>
+
+        <h2>Husky platform</h2>
+        <div class="project-gallery two-column">
+            <figure>
+                <img src="../../assets/images/projects/dynamic-obstacle-avoidance/husky-hardware.jpeg" alt="Clearpath Husky A200 with RGB-D camera and LiDAR" loading="lazy" />
+                <figcaption>Hardware setup on the Clearpath Husky A200.</figcaption>
+            </figure>
+            <figure>
+                <img src="../../assets/images/projects/dynamic-obstacle-avoidance/husky-simulation.png" alt="Husky robot model in simulation" loading="lazy" />
+                <figcaption>Husky platform in simulation.</figcaption>
+            </figure>
+        </div>
+
+        <h2>Results</h2>
+        <ul class="project-key-points">
+            <li>Integrated perception, localization, global planning, and reactive avoidance in ROS.</li>
+            <li>Operated the complete planning loop at approximately 0.8 Hz.</li>
+            <li>Avoided collisions in 95% of dynamic-obstacle encounters across more than 20 reported trials.</li>
+        </ul>
+
+        <footer class="project-page-footer">
+            <a href="../index.html">← Back to Projects</a>
+        </footer>
+    </main>
+
+    <script src="../../assets/js/theme.js"></script>
+</body>
+</html>
