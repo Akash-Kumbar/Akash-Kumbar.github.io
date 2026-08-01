@@ -141,6 +141,32 @@ strong {
     overflow: hidden; /* Add this line */
 }
 
+.availability-banner {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--divider);
+    border-left: 3px solid var(--pink1);
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    color: var(--grey);
+}
+
+.availability-status {
+    flex: 0 0 auto;
+    color: var(--blue1);
+    font-weight: 500;
+}
+
+.availability-banner a {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
 #profile-content {
     overflow: hidden; /* This prevents the text from wrapping under the floated image */
 }
@@ -546,6 +572,17 @@ strong {
     .qualitative-triple,
     .qualitative-comparison {
         grid-template-columns: 1fr;
+    }
+
+    .availability-banner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+        width: calc(100vw - 76px);
+    }
+
+    .availability-banner a {
+        margin-left: 0;
     }
 }
 
