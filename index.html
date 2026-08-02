@@ -12,6 +12,7 @@
       gtag('config', 'G-SFVN22SXDC');
     </script>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
@@ -20,7 +21,7 @@
 </head>
 
 <body>
-    <div style="width:1000px;margin: 0px auto;">
+    <div class="site-shell">
         <header id="header">
             <a href="#profile-intro">Home</a>
             <a href="#updates">Updates</a>
@@ -35,46 +36,36 @@
                 <a href="assets/Akash-Kumbar-CV.pdf" target="_blank">View my CV →</a>
             </aside>
             <div id="profile-pic">
-                <img src="assets/images/in front of poster.jpeg" />
+                <img src="assets/images/in front of poster.jpeg" alt="Akash Kumbar" />
             </div>
             <div id="profile-intro">
                 <div id="profile-name">Akash Kumbar</div>
                 <div id="profile-email"><a href="mailto:akash.kumbar@research.iiit.ac.in">akash.kumbar@research.iiit.ac.in</a> | <a href="mailto:itsakashkumbar@gmail.com">itsakashkumbar@gmail.com</a></div>
                 <div id="profile-content">
                 <p>
-                    I am currently pursuing Master of Science (by Research) at IIIT Hyderabad, where I am a Graduate Student Researcher at the <a href="https://robotics.iiit.ac.in/" target="_blank">Robotics Research Center</a> under the guidance of <a href="https://www.iiit.ac.in/faculty/k-madhava-krishna/" target="_blank">Prof. Madhava Krishna</a>.
+                    I’m Akash Kumbar, an M.S. by Research student and Graduate Student Researcher at the <a href="https://robotics.iiit.ac.in/" target="_blank">Robotics Research Center</a>, IIIT Hyderabad, advised by <a href="https://www.iiit.ac.in/faculty/k-madhava-krishna/" target="_blank">Prof. Madhava Krishna</a>.
                 </p>
 
                 <p>
-                    My work lies at the intersection of 3D computer vision, representation learning, and robotics. I build intelligent systems that can perceive, understand, and act in the real world.
+                    My research focuses on 3D computer vision, representation learning, and autonomous robotics. I develop systems that help robots perceive, reconstruct, and explore real-world environments.
                 </p>
                 <p>
-                    Before joining IIIT Hyderabad, I studied Electronics and Communication Engineering at KLE Technological University, Hubballi. I was also an undergraduate researcher at the <a href="https://cevi.co.in/" target="_blank">Center of Excellence in Visual Intelligence</a> under <a href="https://kletech.irins.org/profile/159972" target="_blank">Prof. Uma Mudenagudi</a>, where I worked on refining point-cloud data, primarily through upsampling. This work led to two papers at ICCV 2023 workshops.
+                    Previously, I studied Electronics and Communication Engineering at KLE Technological University and worked on point-cloud upsampling at the <a href="https://cevi.co.in/" target="_blank">Center of Excellence in Visual Intelligence</a>. This work resulted in two papers at the ICCV 2023 Workshops.
                 </p>
                 <p>
-                    Beyond robotics and academia, I practice mixed martial arts and run(practicing for a half marathon 🙌). Feel free to reach out—I'd love to connect!
+                    Outside research, I train in mixed martial arts and hold a black belt in karate. I also enjoy running and am currently training for a half marathon.
                 </p>
 
-                <p>
-                    <a href="assets/Akash-Kumbar-CV.pdf" target="_blank">
-                        CV
-                    </a>
-                    /
-                    <a href="https://www.linkedin.com/in/akash-kumbar/" target="_blank">
-                        Linkedin
-                    </a>
-                    /
-                    <a href="https://github.com/Akash-Kumbar" target="_blank">
-                        Github
-                    </a>
-                    /
-                    <a href="https://x.com/AkashKumbar6573" target="_blank">
-                        X (formerly Twitter)
-                    </a>
-                    /
-                    <a href="https://scholar.google.com/citations?user=FxJB1FQAAAAJ&amp;hl=en" target="_blank">
-                        Google Scholar
-                    </a>
+                <p class="social-links" aria-label="Professional links">
+                    <a href="assets/Akash-Kumbar-CV.pdf" target="_blank">CV</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="https://scholar.google.com/citations?user=FxJB1FQAAAAJ&amp;hl=en" target="_blank">Google Scholar</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="https://github.com/Akash-Kumbar" target="_blank">GitHub</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="https://www.linkedin.com/in/akash-kumbar/" target="_blank">LinkedIn</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="https://x.com/AkashKumbar6573" target="_blank">X</a>
                 </p>
                 </div>
             </div>
@@ -153,6 +144,22 @@
             </div>
         </div>
         <div class="divider"></div>
+        <section class="teaching-service" id="teaching-service">
+            <h1>Teaching &amp; Service</h1>
+            <div class="service-entry">
+                <p class="service-entry-title"><b>Teaching Assistant, Mobile Robotics</b> — IIIT Hyderabad, Monsoon 2026</p>
+                <p>Mentoring students, supporting course instruction, designing projects and assignments, and grading coursework in mobile robotics.</p>
+            </div>
+            <div class="service-entry">
+                <p class="service-entry-title"><b>Instructor, RRC Summer School</b> — IIIT Hyderabad, 2025–2026</p>
+                <p>Taught deep learning for 3D vision, neural representations, and explicit scene representations, including 3D Gaussian Splatting. <a href="https://youtu.be/-yrWoeIJboc" target="_blank" rel="noopener noreferrer">2026 lecture</a></p>
+            </div>
+            <div class="service-entry">
+                <p class="service-entry-title"><b>Reviewer, IROS 2026 Workshop</b></p>
+                <p>Reviewing submissions for a workshop at IROS 2026.</p>
+            </div>
+        </section>
+        <div class="divider"></div>
         <div class="homepage-projects" id="projects">
             <h1>Projects</h1>
             <p>A selection of my work in computer vision, deep learning, and robotics.</p>
@@ -188,7 +195,7 @@
                 <a class="project-card" href="projects/camera-vehicle-functions/index.html">
                     <img class="project-card-media" src="assets/images/projects/camera-vehicle-functions/res3.png" alt="Pothole and speed breaker detection result" />
                     <span class="project-card-body">
-                        <span class="project-card-title">Camera based vehicle functions</span>
+                        <span class="project-card-title">Camera-Based Vehicle Functions</span>
                         <span class="project-card-description">Completed as a part of Bosch's PRIXEL program</span>
                         <span class="project-card-action">View project →</span>
                     </span>

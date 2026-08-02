@@ -5,7 +5,7 @@
 	--blue2: rgb(0,51,160);
 	--blue3: rgb(0,114,206);
 	--blue4: rgb(108,172,228);
-	--pink1: #F9564F;
+	--pink1: #c23832;
 	--bg: #fff;
 	--header-bg: rgba(255, 255, 255, 0.7);
 	--divider: #ddd;
@@ -25,6 +25,8 @@ body.dark {
 body {
     background-color: var(--bg);
     color: var(--grey);
+    font-size: 1rem;
+    line-height: 1.6;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -46,7 +48,9 @@ html, p{
 }
 p{
     margin: 0.2em;
-    
+    max-width: 70ch;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 ol, ul {
@@ -61,6 +65,7 @@ ul {
 a {
     text-decoration: none;
     color:  var(--pink1);
+    overflow-wrap: anywhere;
 }
 
 i {
@@ -70,6 +75,12 @@ i {
 h1 {
     font-weight: 500;
     color: var(--blue1);
+}
+
+h1,
+h2,
+h3 {
+    overflow-wrap: anywhere;
 }
 
 b {
@@ -111,6 +122,10 @@ strong {
     cursor: pointer;
     font-size: 1.1em;
     line-height: 1;
+    min-width: 24px;
+    min-height: 24px;
+    display: grid;
+    place-items: center;
     transition: transform 0.2s;
 }
 
@@ -124,6 +139,9 @@ strong {
 }
 
 #header a {
+    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
     color: var(--grey);
     transition: color 0.3s ease;
@@ -134,6 +152,13 @@ strong {
 }
 
 /**************************************************/
+
+.site-shell {
+    width: 1000px;
+    max-width: calc(100% - 28px);
+    margin: 0 auto;
+    box-sizing: border-box;
+}
 
 #profile {
     padding: 90px 30px 10px 30px;
@@ -167,6 +192,13 @@ strong {
     margin-left: auto;
 }
 
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.2rem 0.45rem;
+}
+
 #profile-content {
     overflow: hidden; /* This prevents the text from wrapping under the floated image */
 }
@@ -180,6 +212,8 @@ strong {
 
 #profile img {
     width: 320px;
+    max-width: 100%;
+    height: auto;
     margin-bottom: 18px;
 }
 
@@ -197,6 +231,7 @@ strong {
     margin-bottom: 20px;
     color: var(--blue1);
     text-align: center;
+    overflow-wrap: anywhere;
 }
 
 #profile p {
@@ -211,15 +246,19 @@ strong {
 
 .research-thumb {
     width: 20em;
+    max-width: 100%;
     height: 20em;
     float: left;
     margin-top: 7px;
     padding-right: 30px;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 .research-thumb img {
     width: 100%;
+    height: auto;
+    display: block;
 }
 
 .research-entry {
@@ -277,6 +316,7 @@ strong {
 }
 
 .project-card {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -284,6 +324,11 @@ strong {
     background: var(--surface);
     color: var(--grey);
     transition: transform 0.2s, border-color 0.2s;
+}
+
+.project-card:focus-visible {
+    outline: 2px solid var(--pink1);
+    outline-offset: 3px;
 }
 
 .project-card:hover {
@@ -318,7 +363,7 @@ strong {
 .project-card-description {
     flex: 1;
     margin: 0 0 14px;
-    line-height: 1.45;
+    line-height: 1.6;
 }
 
 .project-card-action,
@@ -330,6 +375,26 @@ strong {
 
 .homepage-projects {
     padding-bottom: 30px;
+}
+
+.teaching-service {
+    padding: 20px 0 30px;
+}
+
+.teaching-service h1 {
+    margin-bottom: 20px;
+}
+
+.service-entry + .service-entry {
+    margin-top: 20px;
+}
+
+.service-entry p {
+    margin-left: 0;
+}
+
+.service-entry-title {
+    margin-bottom: 2px;
 }
 
 .homepage-projects > p {
@@ -353,7 +418,8 @@ strong {
 
 .project-subtitle {
     margin: 0 0 16px;
-    font-size: 1.1em;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 .project-tools {
@@ -363,11 +429,13 @@ strong {
 }
 
 .project-tools span {
+    max-width: 100%;
     padding: 4px 10px;
     border: 1px solid var(--divider);
     background: var(--surface);
     color: var(--grey);
-    font-size: 0.9em;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
 }
 
 .project-copy {
@@ -410,8 +478,10 @@ strong {
 .project-gallery figcaption {
     margin-top: 7px;
     color: var(--grey);
-    font-size: 0.92em;
+    font-size: 0.9rem;
+    line-height: 1.5;
     font-style: italic;
+    overflow-wrap: anywhere;
 }
 
 .project-page-footer {
@@ -422,6 +492,7 @@ strong {
 
 .project-authors {
     margin: 0 0 16px;
+    overflow-wrap: anywhere;
 }
 
 .project-link-row {
@@ -429,6 +500,11 @@ strong {
     flex-wrap: wrap;
     gap: 18px;
     margin: 18px 0 26px;
+}
+
+.project-link-row a {
+    min-width: 0;
+    max-width: 100%;
 }
 
 .project-video {
@@ -512,7 +588,7 @@ strong {
     display: block;
     margin-bottom: 6px;
     color: var(--blue1);
-    font-size: 0.82em;
+    font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -541,7 +617,7 @@ strong {
 
 .qualitative-response p {
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 @media (max-width: 700px) {
@@ -552,7 +628,38 @@ strong {
     }
 
     #header a {
-        font-size: 0.9em;
+        font-size: 0.9rem;
+    }
+
+    #profile {
+        padding: 80px 0 10px;
+    }
+
+    #profile-pic {
+        width: 100%;
+        float: none;
+        margin: 28px auto 20px;
+    }
+
+    #profile-name {
+        font-size: 2.25rem;
+    }
+
+    #profile-content,
+    #profile-intro {
+        min-width: 0;
+        overflow: visible;
+    }
+
+    .research-entry {
+        overflow: visible;
+    }
+
+    .research-entry .research-thumb {
+        width: 100%;
+        float: none;
+        padding-right: 0;
+        margin-bottom: 16px;
     }
 
     .project-shell {
@@ -578,7 +685,7 @@ strong {
         align-items: flex-start;
         flex-direction: column;
         gap: 6px;
-        width: calc(100vw - 76px);
+        width: 100%;
     }
 
     .availability-banner a {
@@ -588,11 +695,16 @@ strong {
 
 @media (max-width: 420px) {
     #header {
-        gap: 0.8em;
-        padding-left: 12px;
+        gap: 0.5rem;
+        padding-left: 8px;
+        padding-right: 48px;
     }
 
     #header a {
-        font-size: 0.84em;
+        font-size: 0.875rem;
+    }
+
+    #theme-toggle {
+        right: 12px;
     }
 }
