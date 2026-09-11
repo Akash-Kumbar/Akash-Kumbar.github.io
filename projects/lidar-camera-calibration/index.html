@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SFVN22SXDC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SFVN22SXDC');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
+    <title>LiDAR–Camera Calibration | Akash Kumbar</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E✌️%3C/text%3E%3C/svg%3E">
+</head>
+
+<body>
+    <header id="header">
+        <a href="../../index.html#profile-intro">Home</a>
+        <a href="../../index.html#updates">Updates</a>
+        <a href="../../index.html#research">Research</a>
+        <a href="../index.html">Projects</a>
+        <button id="theme-toggle" type="button" aria-label="Enable dark mode">🌙</button>
+    </header>
+
+    <main class="project-shell project-detail">
+        <header class="project-detail-header">
+            <a class="project-back" href="../index.html">← Back to Projects</a>
+            <h1>LiDAR–Camera Calibration</h1>
+            <p class="project-subtitle">Target-based calibration of six camera intrinsics and camera–LiDAR extrinsics for an autonomous-driving sensor rig</p>
+            <div class="project-tools" aria-label="Tools and systems used">
+                <span>Python</span>
+                <span>OpenCV</span>
+                <span>NumPy</span>
+                <span>SciPy</span>
+                <span>scikit-learn</span>
+                <span>Rerun</span>
+                <span>ChArUco</span>
+                <span>Ouster OS1-64</span>
+            </div>
+            <div class="project-link-row">
+                <a href="https://github.com/Akash-Kumbar/lidar-camera-calibration" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
+                <a href="https://youtu.be/YBAcntvJWEQ" target="_blank" rel="noopener noreferrer">Campus-drive Demo ↗</a>
+            </div>
+        </header>
+
+        <div class="project-copy">
+            <p>I developed a calibration pipeline for the sensor rig on Bodhyaan, the autonomous vehicle from I-Hub Data at IIIT Hyderabad. The platform combines six Teledyne FLIR Blackfly S cameras with Edmund Optics lenses and an Ouster OS1 64-channel LiDAR.</p>
+            <p>The goal was to recover accurate camera intrinsics and the rigid LiDAR-to-camera transformations needed to project 3D LiDAR measurements into every image. The intrinsic calibration achieved a reported reprojection error below 0.05.</p>
+        </div>
+
+        <h2>Sensor platform</h2>
+        <div class="project-gallery two-column">
+            <figure>
+                <img src="../../assets/images/projects/lidar-camera-calibration/car-display.jpg" alt="Bodhyaan autonomous vehicle with the six-camera and LiDAR sensor rig mounted on its roof" loading="lazy" />
+                <figcaption>Bodhyaan, I-Hub Data's autonomous research vehicle at IIIT Hyderabad.</figcaption>
+            </figure>
+            <figure>
+                <img src="../../assets/images/projects/lidar-camera-calibration/board_on_stand.jpeg" alt="Hybrid ChArUco and retroreflective calibration target on a stand outdoors" loading="lazy" />
+                <figcaption>The target positioned outdoors during sensor calibration.</figcaption>
+            </figure>
+        </div>
+
+        <section class="project-media-section">
+            <h2>A target visible to both sensors</h2>
+            <div class="project-copy">
+                <p>A standard printed board is easy for a camera to detect but gives weak and ambiguous LiDAR returns. I built a 0.96 m square hybrid target with a ChArUco pattern, a retroreflective outer border, and four 24 cm reflective circles. The circle centers form a cross with 0.6 m horizontal and vertical spacing, giving both sensors the same known geometry.</p>
+            </div>
+            <video class="project-video" autoplay loop muted playsinline controls preload="metadata" aria-label="Comparison of calibration-board visibility in camera and LiDAR data with and without reflective tape">
+                <source src="../../assets/images/projects/lidar-camera-calibration/comparison.webm" type="video/webm">
+            </video>
+            <p class="project-media-caption">RGB and LiDAR comparison before and after adding retroreflective material to the target.</p>
+        </section>
+
+        <div class="project-gallery">
+            <figure>
+                <img src="../../assets/images/projects/lidar-camera-calibration/calibration-board-display.jpg" alt="Calibration board combining a ChArUco pattern with four circular retroreflective targets" loading="lazy" />
+                <figcaption>The completed hybrid calibration target. ChArUco features determine the image-side board pose; the four circles define the matching LiDAR geometry.</figcaption>
+            </figure>
+        </div>
+
+        <h2>Calibration pipeline</h2>
+        <ul class="project-key-points">
+            <li><b>Synchronize the observations.</b> Point-cloud <code>.npz</code> files and camera images are paired by filename, so every accepted sample describes the board from the same sensor frame.</li>
+            <li><b>Estimate the image-side target pose.</b> Raw Bayer RGGB images are converted to RGB, ArUco markers are detected and remapped to the physical board layout, and ChArUco corners are interpolated. OpenCV's iterative PnP solver estimates the camera-to-board pose using the saved camera matrix and distortion coefficients. Frames require at least eight ChArUco corners and are rejected if their image reprojection RMSE exceeds 1.5 px.</li>
+            <li><b>Extract the target from the LiDAR scan.</b> The code crops the working volume, keeps points above a reflectivity threshold of 75, fits the board plane with PCA, and aligns it in 2D. After removing the reflective outer border, DBSCAN separates the four circles. Median-based centers and geometric filters reject sparse, tiny, or line-shaped clusters before assigning the left, right, top, and bottom roles.</li>
+            <li><b>Fit and validate the 3D board pose.</b> An SVD-based rigid alignment fits the known four-circle model to the detected LiDAR centers. A frame is accepted only when the board-fit RMSE is at most 2 cm and the maximum pairwise-spacing error is at most 4 cm.</li>
+            <li><b>Solve the extrinsics across frames.</b> The accepted LiDAR centers are matched to image pixels obtained from the ChArUco pose. The LiDAR-to-camera transform is initialized both with EPNP inside RANSAC and from the mean of per-frame rotation estimates with median translation. Each candidate is refined using SciPy's soft-L1 least squares; residuals above 6 px are removed before a final linear least-squares pass, and the solution with the lowest inlier RMSE is retained.</li>
+        </ul>
+
+        <h2>Diagnostics and output</h2>
+        <div class="project-copy">
+            <p>The pipeline reports aggregate and per-frame reprojection statistics, board-fit residuals, inlier counts, and pose-consistency checks. Rerun views overlay the target and projected LiDAR centers, visualize residual vectors in 2D and 3D, and make problematic frames easy to inspect.</p>
+            <p>The final artifact stores both camera-from-LiDAR and LiDAR-from-camera 4×4 transforms, rotation and translation vectors, camera intrinsics and distortion, per-frame transforms, and per-point error and inlier metadata in NPZ, with optional JSON export.</p>
+        </div>
+
+        <section class="project-media-section">
+            <h2>Road-test result</h2>
+            <iframe class="project-video-embed" src="https://www.youtube.com/embed/YBAcntvJWEQ" title="LiDAR points projected onto camera images during a drive around the IIIT Hyderabad campus" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <p class="project-media-caption">LiDAR points projected into the camera view during a complete drive around the IIIT Hyderabad campus. <a href="https://youtu.be/YBAcntvJWEQ" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a></p>
+        </section>
+
+        <footer class="project-page-footer">
+            <a href="../index.html">← Back to Projects</a>
+        </footer>
+    </main>
+
+    <script src="../../assets/js/theme.js"></script>
+</body>
+</html>
