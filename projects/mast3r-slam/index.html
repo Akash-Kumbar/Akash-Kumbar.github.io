@@ -33,10 +33,19 @@
             <a class="project-back" href="../index.html">← Back to Projects</a>
             <h1>MAST3R-SLAM</h1>
             <p class="project-subtitle">Camera-pose extraction and 3D scene reconstruction from point clouds and images</p>
+            <dl class="project-facts">
+                <div><dt>Method</dt><dd>MASt3R-based reconstruction with camera-extrinsic and scene extraction for inspecting camera poses and 3D geometry.</dd></div>
+                <div><dt>Stack</dt><dd>PyTorch, CUDA</dd></div>
+                <div><dt>Evaluation</dt><dd>Qualitative reconstruction demo on KITTI</dd></div>
+            </dl>
             <div class="project-link-row">
                 <a href="https://github.com/MAST3R-SLAM/mast3r" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
             </div>
         </header>
+
+        <div class="project-copy">
+            <p>This project explores camera-pose and scene extraction using MASt3R-based reconstruction. The linked repository adds extrinsic, point-cloud, and camera extraction code to the existing MASt3R implementation. The KITTI sequence below illustrates the reconstruction qualitatively; trajectory-error and runtime benchmarks are not reported here.</p>
+        </div>
 
         <div class="project-media-section">
             <video class="project-video" autoplay loop muted playsinline controls preload="metadata" aria-label="MAST3R-SLAM running on the KITTI dataset">

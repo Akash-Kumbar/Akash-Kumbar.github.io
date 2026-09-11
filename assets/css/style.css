@@ -422,20 +422,120 @@ strong {
     line-height: 1.6;
 }
 
-.project-tools {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+.profile-lead {
+    color: var(--blue1);
+    font-weight: 600;
 }
 
-.project-tools span {
-    max-width: 100%;
-    padding: 4px 10px;
-    border: 1px solid var(--divider);
-    background: var(--surface);
-    color: var(--grey);
-    font-size: 0.9rem;
+.project-facts {
+    margin: 18px 0 0;
+    padding: 14px 0;
+    border-top: 1px solid var(--divider);
+    border-bottom: 1px solid var(--divider);
+    font-size: 0.95rem;
+}
+
+.project-facts > div {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: 12px;
+}
+
+.project-facts > div + div {
+    margin-top: 8px;
+}
+
+.project-facts dt {
+    color: var(--blue1);
+    font-weight: 600;
+}
+
+.project-facts dd {
+    margin: 0;
     overflow-wrap: anywhere;
+}
+
+.project-evaluation {
+    margin-bottom: 32px;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+.evaluation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+.evaluation-table caption {
+    text-align: left;
+    margin-bottom: 12px;
+}
+
+.evaluation-table th,
+.evaluation-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--divider);
+    vertical-align: top;
+}
+
+.evaluation-table th {
+    color: var(--blue1);
+    font-weight: 600;
+}
+
+.evaluation-table thead {
+    background: var(--surface);
+}
+
+.evaluation-note {
+    margin: 12px 0 0;
+    max-width: 85ch;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 420px) {
+    .project-facts > div {
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+
+    .evaluation-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+    }
+
+    .evaluation-table,
+    .evaluation-table caption,
+    .evaluation-table tbody,
+    .evaluation-table tr,
+    .evaluation-table th,
+    .evaluation-table td {
+        display: block;
+    }
+
+    .evaluation-table tr {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--divider);
+    }
+
+    .evaluation-table th,
+    .evaluation-table td {
+        padding: 4px 0;
+        border: 0;
+    }
+
+    .evaluation-table td::before {
+        content: attr(data-label) ": ";
+        font-weight: 600;
+    }
+
 }
 
 .project-copy {

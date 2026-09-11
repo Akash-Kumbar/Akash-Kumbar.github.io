@@ -34,13 +34,11 @@
             <h1>ARROU: Adversarially Robust Rank-One Unlearning</h1>
             <p class="project-subtitle">Targeted knowledge editing and unlearning in large language models</p>
             <p class="project-authors"><b>Akash Kumbar</b>, Ayan Kashyap, and Siddharth Jain</p>
-            <div class="project-tools" aria-label="Models, methods, and benchmarks used">
-                <span>Llama 3.2 1B</span>
-                <span>r-ROME</span>
-                <span>Latent Adversarial Training</span>
-                <span>WMDP</span>
-                <span>TOFU</span>
-            </div>
+            <dl class="project-facts">
+                <div><dt>Method</dt><dd>Latent adversarial training guides localized r-ROME edits to reduce recovery of forgotten knowledge while preserving retained utility.</dd></div>
+                <div><dt>Stack</dt><dd>Python, PyTorch, Hugging Face Transformers, CUDA</dd></div>
+                <div><dt>Evaluation</dt><dd>Llama 3.2 1B; WMDP and TOFU forgetting benchmarks, with retained utility evaluation</dd></div>
+            </dl>
             <div class="project-link-row">
                 <a href="../../assets/images/projects/arrou/report.pdf" target="_blank">Course Report (PDF) ↗</a>
                 <a href="https://github.com/NamekNets/arrou" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>

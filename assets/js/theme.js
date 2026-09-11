@@ -11,7 +11,8 @@
         button.setAttribute('aria-label', dark ? 'Enable light mode' : 'Enable dark mode');
     };
 
-    applyTheme(localStorage.getItem('theme') === 'dark');
+    const savedTheme = localStorage.getItem('theme');
+    applyTheme(savedTheme !== 'light');
 
     button.addEventListener('click', () => {
         const dark = !document.body.classList.contains('dark');

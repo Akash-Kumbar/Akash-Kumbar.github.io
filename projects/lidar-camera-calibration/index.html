@@ -33,16 +33,11 @@
             <a class="project-back" href="../index.html">← Back to Projects</a>
             <h1>LiDAR–Camera Calibration</h1>
             <p class="project-subtitle">Target-based calibration of six camera intrinsics and camera–LiDAR extrinsics for an autonomous-driving sensor rig</p>
-            <div class="project-tools" aria-label="Tools and systems used">
-                <span>Python</span>
-                <span>OpenCV</span>
-                <span>NumPy</span>
-                <span>SciPy</span>
-                <span>scikit-learn</span>
-                <span>Rerun</span>
-                <span>ChArUco</span>
-                <span>Ouster OS1-64</span>
-            </div>
+            <dl class="project-facts">
+                <div><dt>Method</dt><dd>Hybrid ChArUco/reflective target, geometric filtering of LiDAR returns, and robust multi-frame optimization for camera–LiDAR extrinsics.</dd></div>
+                <div><dt>Stack</dt><dd>Python, OpenCV, NumPy, SciPy, scikit-learn, Rerun</dd></div>
+                <div><dt>Hardware</dt><dd>Six Teledyne FLIR Blackfly S cameras and an Ouster OS1-64 LiDAR</dd></div>
+            </dl>
             <div class="project-link-row">
                 <a href="https://github.com/Akash-Kumbar/lidar-camera-calibration" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
                 <a href="https://youtu.be/YBAcntvJWEQ" target="_blank" rel="noopener noreferrer">Campus-drive Demo ↗</a>
@@ -51,8 +46,25 @@
 
         <div class="project-copy">
             <p>I developed a calibration pipeline for the sensor rig on Bodhyaan, the autonomous vehicle from I-Hub Data at IIIT Hyderabad. The platform combines six Teledyne FLIR Blackfly S cameras with Edmund Optics lenses and an Ouster OS1 64-channel LiDAR.</p>
-            <p>The goal was to recover accurate camera intrinsics and the rigid LiDAR-to-camera transformations needed to project 3D LiDAR measurements into every image. The intrinsic calibration achieved a reported reprojection error below 0.05.</p>
+            <p>The goal was to recover accurate camera intrinsics and the rigid LiDAR-to-camera transformations needed to project 3D LiDAR measurements into every image. The intrinsic calibration achieved a reported reprojection error below 0.05; the units and averaging method are not specified here.</p>
         </div>
+
+        <section class="project-evaluation" aria-labelledby="calibration-validation">
+            <h2 id="calibration-validation">Validation criteria</h2>
+            <div class="table-scroll">
+                <table class="evaluation-table">
+                    <caption>Configured acceptance thresholds used to reject unreliable observations.</caption>
+                    <thead><tr><th scope="col">Check</th><th scope="col">Threshold</th><th scope="col">Meaning</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">Image-side target pose</th><td data-label="Threshold">At least 8 corners; RMSE ≤ 1.5 px</td><td data-label="Meaning">Requires enough ChArUco observations and limits image reprojection error for the board pose.</td></tr>
+                        <tr><th scope="row">LiDAR board fit</th><td data-label="Threshold">RMSE ≤ 2 cm</td><td data-label="Meaning">Limits the residual between detected circle centers and the fitted rigid target geometry.</td></tr>
+                        <tr><th scope="row">Target geometry</th><td data-label="Threshold">Maximum spacing error ≤ 4 cm</td><td data-label="Meaning">Rejects detections whose pairwise circle spacing disagrees with the known target.</td></tr>
+                        <tr><th scope="row">Final extrinsic inliers</th><td data-label="Threshold">Reprojection residual ≤ 6 px</td><td data-label="Meaning">Filters correspondences after robust optimization, before the final least-squares fit.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="evaluation-note">These are filtering thresholds, not measured calibration accuracy. Camera intrinsic calibration and camera–LiDAR extrinsic alignment are separate evaluations. The campus-drive video below provides a qualitative check of LiDAR-to-image alignment. <a href="https://github.com/Akash-Kumbar/lidar-camera-calibration" target="_blank" rel="noopener noreferrer">Calibration code and parameters ↗</a></p>
+        </section>
 
         <h2>Sensor platform</h2>
         <div class="project-gallery two-column">
@@ -86,7 +98,7 @@
 
         <h2>Calibration pipeline</h2>
         <ul class="project-key-points">
-            <li><b>Synchronize the observations.</b> Point-cloud <code>.npz</code> files and camera images are paired by filename, so every accepted sample describes the board from the same sensor frame.</li>
+            <li><b>Pair the observations.</b> Point-cloud <code>.npz</code> files and camera images are paired by filename, using matching filename stems to associate each scan with an image.</li>
             <li><b>Estimate the image-side target pose.</b> Raw Bayer RGGB images are converted to RGB, ArUco markers are detected and remapped to the physical board layout, and ChArUco corners are interpolated. OpenCV's iterative PnP solver estimates the camera-to-board pose using the saved camera matrix and distortion coefficients. Frames require at least eight ChArUco corners and are rejected if their image reprojection RMSE exceeds 1.5 px.</li>
             <li><b>Extract the target from the LiDAR scan.</b> The code crops the working volume, keeps points above a reflectivity threshold of 75, fits the board plane with PCA, and aligns it in 2D. After removing the reflective outer border, DBSCAN separates the four circles. Median-based centers and geometric filters reject sparse, tiny, or line-shaped clusters before assigning the left, right, top, and bottom roles.</li>
             <li><b>Fit and validate the 3D board pose.</b> An SVD-based rigid alignment fits the known four-circle model to the detected LiDAR centers. A frame is accepted only when the board-fit RMSE is at most 2 cm and the maximum pairwise-spacing error is at most 4 cm.</li>

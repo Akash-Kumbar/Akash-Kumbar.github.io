@@ -32,17 +32,13 @@
         <header class="project-detail-header">
             <a class="project-back" href="../index.html">← Back to Projects</a>
             <h1>Dynamic Obstacle Detection and Avoidance</h1>
-            <p class="project-subtitle">Unknown collision avoidance through multi-modal perception and reactive planning</p>
+            <p class="project-subtitle">Dynamic-obstacle avoidance on a Husky A200 using multimodal perception and reactive planning</p>
             <p class="project-authors"><b>Akash Kumbar</b>, Astik Srivastava, and Nabanita Dash</p>
-            <div class="project-tools" aria-label="Tools and systems used">
-                <span>ROS</span>
-                <span>Husky A200</span>
-                <span>RGB-D</span>
-                <span>LiDAR</span>
-                <span>Fast-LIO</span>
-                <span>RRT*</span>
-                <span>MPC</span>
-            </div>
+            <dl class="project-facts">
+                <div><dt>System</dt><dd>RGB-D/LiDAR obstacle tracking, Fast-LIO localization, RRT*/MinCo global planning, and MPC-based reactive avoidance.</dd></div>
+                <div><dt>Stack</dt><dd>ROS Noetic, RViz, Fast-LIO, onboard-detector, RDA planner, Ubuntu 20.04</dd></div>
+                <div><dt>Hardware</dt><dd>Husky A200, Intel RealSense D455, Livox Mid-70, Intel i5 + RTX 2060</dd></div>
+            </dl>
             <div class="project-link-row">
                 <a href="../../assets/images/projects/dynamic-obstacle-avoidance/report.pdf" target="_blank">Course Report (PDF) ↗</a>
                 <a href="https://drive.google.com/file/d/1wvF8W3gqW8Vd6Y5xx3n2wU4U4mOY0ZrC/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Real-world Robot Demo ↗</a>
@@ -50,8 +46,24 @@
         </header>
 
         <div class="project-copy">
-            <p>We developed a navigation stack for the Clearpath Husky A200 to detect and track moving obstacles, localize against a LiDAR map, and reactively plan collision-free motion. The system combines RGB-D and LiDAR perception with Fast-LIO localization, RRT*/MinCo global planning, and MPC-based local planning within ROS.</p>
+            <p>We developed a navigation stack for the Clearpath Husky A200 to detect and track moving obstacles, localize against a LiDAR map, and reactively plan collision-free motion. The demonstrated system uses a prebuilt LiDAR map for localization; moving obstacles are detected and tracked online. Our team integrated the perception, localization, and planning modules through ROS topics and services, using RViz to inspect sensor overlays, robot poses, and trajectories.</p>
         </div>
+
+        <section class="project-evaluation" aria-labelledby="navigation-results">
+            <h2 id="navigation-results">Results and evaluation</h2>
+            <div class="table-scroll">
+                <table class="evaluation-table">
+                    <caption>Husky deployment, as reported in the course report, Sections 5 and 6.</caption>
+                    <thead><tr><th scope="col">Measure</th><th scope="col">Reported result</th><th scope="col">Evaluation context</th></tr></thead>
+                    <tbody>
+                        <tr><th scope="row">Collision avoidance</th><td data-label="Reported result">95% of dynamic-obstacle encounters</td><td data-label="Evaluation context">More than 20 test trials in indoor and outdoor settings, including moving humans. Success refers to avoiding a collision during an encounter.</td></tr>
+                        <tr><th scope="row">Full planning-loop rate</th><td data-label="Reported result">Approximately 0.8 Hz</td><td data-label="Evaluation context">About 1.25 seconds per planning update. The report does not give a separate low-level control frequency.</td></tr>
+                        <tr><th scope="row">Onboard compute</th><td data-label="Reported result">Intel i5 + RTX 2060</td><td data-label="Evaluation context">ROS Noetic on Ubuntu 20.04, with RGB-D and LiDAR perception on the physical Husky A200.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="evaluation-note">The report gives the aggregate success percentage and a trial-count lower bound, but no exact encounter count or per-trial breakdown. The deployment uses a prebuilt map; online map updates are listed as future work. <a href="../../assets/images/projects/dynamic-obstacle-avoidance/report.pdf" target="_blank">Read the evaluation ↗</a></p>
+        </section>
 
         <h2>System overview</h2>
         <div class="project-gallery">
@@ -103,13 +115,6 @@
                 <figcaption>Husky platform in simulation.</figcaption>
             </figure>
         </div>
-
-        <h2>Results</h2>
-        <ul class="project-key-points">
-            <li>Integrated perception, localization, global planning, and reactive avoidance in ROS.</li>
-            <li>Operated the complete planning loop at approximately 0.8 Hz.</li>
-            <li>Avoided collisions in 95% of dynamic-obstacle encounters across more than 20 reported trials.</li>
-        </ul>
 
         <footer class="project-page-footer">
             <a href="../index.html">← Back to Projects</a>
