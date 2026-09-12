@@ -575,6 +575,12 @@ strong {
     border: 1px solid var(--divider);
 }
 
+.project-gallery .project-figure-portrait {
+    width: 417px;
+    max-width: 100%;
+    justify-self: center;
+}
+
 .project-gallery figcaption {
     margin-top: 7px;
     color: var(--grey);
