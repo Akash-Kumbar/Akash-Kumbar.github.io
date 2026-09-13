@@ -581,6 +581,16 @@ strong {
     justify-self: center;
 }
 
+.project-gallery .project-figure-board {
+    width: 640px;
+    max-width: 100%;
+    justify-self: center;
+}
+
+.project-gallery .project-figure-board img {
+    max-height: none;
+}
+
 .project-gallery figcaption {
     margin-top: 7px;
     color: var(--grey);
